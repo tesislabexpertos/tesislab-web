@@ -260,6 +260,36 @@
   .foot-col a:hover{color:var(--gold-soft)}
   .foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-top:22px;font-size:.82rem;color:rgba(255,255,255,.5)}
 
+  /* ---------- Agenda / Citas ---------- */
+  #agenda{background:var(--paper)}
+  .agenda-card{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;
+    background:
+      radial-gradient(700px 360px at 88% -20%, rgba(201,166,76,.18), transparent 60%),
+      linear-gradient(155deg,var(--navy-900),var(--navy-700));
+    border:1px solid rgba(201,166,76,.28);border-radius:22px;padding:48px 52px;box-shadow:var(--shadow);
+    position:relative;overflow:hidden;
+  }
+  .agenda-left .eyebrow{margin-bottom:14px}
+  .agenda-left h2{font-size:clamp(1.7rem,3vw,2.3rem);color:#fff;font-weight:700;margin-bottom:14px}
+  .agenda-left p{color:rgba(255,255,255,.8);font-size:1.05rem;margin-bottom:26px;max-width:46ch;font-weight:300}
+  .agenda-feats{display:flex;flex-direction:column;gap:13px;margin-bottom:30px}
+  .af{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.92);font-size:.96rem}
+  .af svg{width:22px;height:22px;stroke:var(--gold-soft);flex:none}
+  .agenda-left .btn{font-size:1rem;padding:15px 30px}
+
+  /* mini calendar visual */
+  .cal-vis{background:rgba(255,255,255,.06);border:1px solid rgba(201,166,76,.3);border-radius:16px;padding:22px;backdrop-filter:blur(6px)}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .cal-head .mo{font-family:var(--display);font-weight:600;color:#fff;font-size:1rem}
+  .cal-head .dot{width:9px;height:9px;border-radius:50%;background:var(--gold)}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .cal-grid .dw{font-family:var(--display);font-size:.66rem;color:rgba(255,255,255,.5);text-align:center;font-weight:600;padding-bottom:4px}
+  .cal-grid .cd{aspect-ratio:1;display:grid;place-items:center;font-size:.78rem;color:rgba(255,255,255,.78);border-radius:8px}
+  .cal-grid .cd.mut{color:rgba(255,255,255,.28)}
+  .cal-grid .cd.free{background:rgba(201,166,76,.16);color:var(--gold-soft);font-weight:600;cursor:pointer}
+  .cal-grid .cd.sel{background:var(--gold);color:var(--navy-900);font-weight:700}
+
   /* ---------- Floating WhatsApp ---------- */
   .wa-float{position:fixed;right:22px;bottom:22px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 30px rgba(37,211,102,.4);transition:transform .2s}
   .wa-float:hover{transform:scale(1.08)}
@@ -280,6 +310,7 @@
     .form-wrap{grid-template-columns:1fr;gap:32px}
     .planner-top{grid-template-columns:1fr 1fr}
     .foot-grid{grid-template-columns:1fr 1fr}
+    .agenda-card{grid-template-columns:1fr;gap:34px;padding:38px 30px}
   }
   @media(max-width:640px){
     .nav-links{display:none}
@@ -320,7 +351,7 @@
       <a href="#servicios">Servicios</a>
       <a href="#planificador">Planifica tu tesis</a>
       <a href="#porque">Por qué nosotros</a>
-      <a href="#proceso">Proceso</a>
+      <a href="#agenda">Agenda una cita</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <div class="nav-cta">
@@ -541,6 +572,51 @@
   </div>
 </section>
 
+<!-- ============ AGENDA / CITAS ============ -->
+<section id="agenda">
+  <div class="wrap">
+    <div class="agenda-card reveal">
+      <div class="agenda-left">
+        <span class="eyebrow on-dark">Agenda una consulta</span>
+        <h2>Conversemos sobre tu proyecto</h2>
+        <p>Reserva una consulta gratuita de 30 minutos. Elige el día y la hora que mejor te queden, y hablamos sobre tu tesis, informe de práctica o trabajo de investigación.</p>
+        <div class="agenda-feats">
+          <div class="af">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            30 minutos, sin costo ni compromiso
+          </div>
+          <div class="af">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M23 7l-7 5 7 5V7z" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            Por Google Meet, WhatsApp o presencial en Santiago
+          </div>
+          <div class="af">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 11l3 3L22 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke-linecap="round"/></svg>
+            Confirmación y recordatorio automáticos a tu correo
+          </div>
+        </div>
+        <a href="https://calendar.app.google/CjQtQ6dooSonbmBw8" target="_blank" rel="noopener" class="btn btn-gold">
+          Agenda tu consulta
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18" stroke-linecap="round"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg>
+        </a>
+      </div>
+
+      <div class="cal-vis" aria-hidden="true">
+        <div class="cal-head">
+          <span class="mo">Reserva tu espacio</span>
+          <span class="dot"></span>
+        </div>
+        <div class="cal-grid">
+          <div class="dw">D</div><div class="dw">L</div><div class="dw">M</div><div class="dw">M</div><div class="dw">J</div><div class="dw">V</div><div class="dw">S</div>
+          <div class="cd mut">28</div><div class="cd mut">29</div><div class="cd mut">30</div><div class="cd">1</div><div class="cd">2</div><div class="cd">3</div><div class="cd mut">4</div>
+          <div class="cd mut">5</div><div class="cd free">6</div><div class="cd free">7</div><div class="cd free">8</div><div class="cd">9</div><div class="cd free">10</div><div class="cd mut">11</div>
+          <div class="cd mut">12</div><div class="cd">13</div><div class="cd sel">14</div><div class="cd free">15</div><div class="cd free">16</div><div class="cd">17</div><div class="cd mut">18</div>
+          <div class="cd mut">19</div><div class="cd free">20</div><div class="cd">21</div><div class="cd free">22</div><div class="cd free">23</div><div class="cd free">24</div><div class="cd mut">25</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CONTACTO / FORM ============ -->
 <section id="contacto">
   <div class="wrap form-wrap">
@@ -642,6 +718,7 @@
         <h5>Contacto</h5>
         <a href="https://wa.me/50768138959" target="_blank" rel="noopener">WhatsApp 6813-8959</a>
         <a href="mailto:tesislabexpertos@gmail.com">tesislabexpertos@gmail.com</a>
+        <a href="#agenda">Agenda una cita</a>
         <a href="#planificador">Calcula tu cronograma</a>
         <a href="#contacto">Solicita cotización</a>
       </div>

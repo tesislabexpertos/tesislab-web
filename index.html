@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TesisLab Expertos | Acompañamiento académico en Panamá</title>
-<meta name="description" content="Desarrollo integral de tesis, informes de práctica profesional, monografías y análisis estadístico para estudiantes de UDELAS y universidades de Panamá. Rigor metodológico y formato APA 7.">
+<meta name="description" content="Desarrollo integral de tesis, informes de práctica profesional, monografías y análisis de datos cuantitativo y cualitativo para estudiantes universitarios en Panamá. Citación en APA, MLA, Chicago y Vancouver.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -260,6 +260,29 @@
   .foot-col a:hover{color:var(--gold-soft)}
   .foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;padding-top:22px;font-size:.82rem;color:rgba(255,255,255,.5)}
 
+  /* ---------- Cobertura (tabs) ---------- */
+  #cobertura{background:var(--paper-2)}
+  .cob-tabs{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:30px}
+  .cob-tab{
+    display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:.96rem;
+    padding:14px 26px;border-radius:12px;border:1.5px solid var(--line-soft);background:var(--white);color:var(--navy-700);
+    cursor:pointer;transition:transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+  }
+  .cob-tab svg{width:20px;height:20px;stroke:var(--gold-deep);flex:none;transition:stroke .18s ease}
+  .cob-tab:hover{border-color:var(--gold);transform:translateY(-2px)}
+  .cob-tab.active{background:var(--navy-700);color:#fff;border-color:var(--navy-700);box-shadow:0 10px 26px rgba(26,42,79,.22)}
+  .cob-tab.active svg{stroke:var(--gold-soft)}
+  .cob-panels{max-width:760px;margin:0 auto}
+  .cob-panel{display:none;background:var(--white);border:1px solid var(--line);border-radius:18px;padding:38px 44px;text-align:center;box-shadow:var(--shadow-sm)}
+  .cob-panel.active{display:block;animation:cobFade .4s ease}
+  @keyframes cobFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .cob-panel .cob-ic{width:58px;height:58px;border-radius:15px;margin:0 auto 20px;display:grid;place-items:center;background:linear-gradient(160deg,var(--navy-700),var(--navy-500))}
+  .cob-panel .cob-ic svg{width:28px;height:28px;stroke:var(--gold-soft)}
+  .cob-panel h3{font-size:1.32rem;color:var(--navy-800);margin-bottom:12px;font-weight:600}
+  .cob-panel p{color:var(--slate);font-size:1.02rem;line-height:1.75;margin:0 auto;max-width:58ch}
+  .cob-panel .tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
+  .cob-panel .tags span{font-family:var(--display);font-size:.78rem;font-weight:600;color:var(--gold-deep);background:rgba(201,166,76,.12);border:1px solid var(--line);padding:6px 13px;border-radius:20px}
+
   /* ---------- Agenda / Citas ---------- */
   #agenda{background:var(--paper)}
   .agenda-card{
@@ -325,6 +348,9 @@
     .foot-grid{grid-template-columns:1fr}
     .hero-stats{gap:24px}
     section{padding:64px 0}
+    .cob-tabs{flex-direction:column;align-items:stretch}
+    .cob-tab{justify-content:center}
+    .cob-panel{padding:30px 24px}
   }
   @media(prefers-reduced-motion:reduce){
     .reveal{opacity:1;transform:none;transition:none}
@@ -370,18 +396,13 @@
     <div class="reveal">
       <span class="eyebrow on-dark">Consultoría académica · Panamá</span>
       <h1>Avanza tu trabajo de grado <em>con método y respaldo experto.</em></h1>
-      <p class="lead">Acompañamiento integral para estudiantes de UDELAS y universidades de Panamá. De la idea a la sustentación, con rigor metodológico y formato APA 7.</p>
+      <p class="lead">Acompañamiento integral para estudiantes de las principales universidades de Panamá. De la idea a la sustentación, con rigor metodológico y el estilo de citación que tu universidad exija.</p>
       <div class="hero-cta">
         <a href="#planificador" class="btn btn-gold">
           Calcula tu cronograma
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <a href="#contacto" class="btn btn-ghost">Solicita una cotización</a>
-      </div>
-      <div class="hero-stats">
-        <div class="s"><b>Lic · Mtría · Doc</b><span>Todos los niveles</span></div>
-        <div class="s"><b>APA 7</b><span>Formato y citación verificada</span></div>
-        <div class="s"><b>SPSS</b><span>Análisis estadístico real</span></div>
       </div>
     </div>
 
@@ -406,12 +427,16 @@
 <!-- ============ TRUST ============ -->
 <div class="trust">
   <div class="wrap trust-inner">
-    <span class="tag">Experiencia con</span>
+    <span class="tag">Hemos trabajado con</span>
     <span>UDELAS</span>
-    <span>Maestrías</span>
-    <span>Doctorados</span>
-    <span>Prácticas profesionales</span>
-    <span>Investigación aplicada</span>
+    <span>U. de Panamá</span>
+    <span>UMECIT</span>
+    <span>U. del Istmo</span>
+    <span>USMA</span>
+    <span>Latina</span>
+    <span>Interamericana</span>
+    <span>ISAE</span>
+    <span>OTEIMA</span>
   </div>
 </div>
 
@@ -436,8 +461,8 @@
       </div>
       <div class="card reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18" stroke-linecap="round"/><path d="M7 14l3-4 3 3 5-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Análisis estadístico en SPSS</h3>
-        <p>Procesamiento de datos, pruebas inferenciales y tablas APA con resultados reales: chi-cuadrado, regresión y más.</p>
+        <h3>Análisis cuantitativo y cualitativo</h3>
+        <p>Datos cuantitativos en SPSS (pruebas inferenciales, tablas y gráficos) y cualitativos en Atlas.ti (codificación, categorías y redes de sentido).</p>
       </div>
       <div class="card reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 6.5C10.5 5 8 4.5 6 5v13c2-.5 4.5 0 6 1.5 1.5-1.5 4-2 6-1.5V5c-2-.5-4.5 0-6 1.5z"/><path d="M12 6.5v13" stroke-linecap="round"/></svg></div>
@@ -451,8 +476,57 @@
       </div>
       <div class="card reveal">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 20h9" stroke-linecap="round"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z" stroke-linejoin="round"/></svg></div>
-        <h3>Revisión y formato APA 7</h3>
-        <p>Auditoría de citas, corrección de estilo y formato final conforme a la séptima edición de las normas APA.</p>
+        <h3>Citación y formato académico</h3>
+        <p>Auditoría de citas y formato final en APA (6 y 7), MLA, Chicago y Vancouver, según lo que exija tu universidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COBERTURA / TABS ============ -->
+<section id="cobertura">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Cobertura completa</span>
+      <h2>Todo lo que tu investigación necesita</h2>
+      <p>Explora los niveles, las herramientas de análisis y los estilos de citación con los que trabajamos. Toca cada opción para ver el detalle.</p>
+    </div>
+
+    <div class="cob-tabs reveal">
+      <button class="cob-tab active" data-tab="niveles" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3L2 8l10 5 10-5-10-5z" stroke-linejoin="round"/><path d="M6 10.5V16c0 0 2.5 2.5 6 2.5s6-2.5 6-2.5v-5.5" stroke-linecap="round"/></svg>
+        Niveles académicos
+      </button>
+      <button class="cob-tab" data-tab="datos" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 3v18h18" stroke-linecap="round"/><path d="M7 14l3-4 3 3 5-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Análisis de datos
+      </button>
+      <button class="cob-tab" data-tab="estilos" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 20h9" stroke-linecap="round"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z" stroke-linejoin="round"/></svg>
+        Estilos de redacción
+      </button>
+    </div>
+
+    <div class="cob-panels reveal">
+      <div class="cob-panel active" id="panel-niveles">
+        <div class="cob-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 3L2 8l10 5 10-5-10-5z" stroke-linejoin="round"/><path d="M6 10.5V16c0 0 2.5 2.5 6 2.5s6-2.5 6-2.5v-5.5" stroke-linecap="round"/><path d="M22 8v6" stroke-linecap="round"/></svg></div>
+        <h3>Licenciatura, maestría y doctorado</h3>
+        <p>Acompañamos trabajos de grado en los tres niveles. Desde la tesis de licenciatura hasta la disertación doctoral, ajustamos la profundidad teórica, el alcance metodológico y el rigor del análisis a lo que tu programa exige.</p>
+        <div class="tags"><span>Licenciatura</span><span>Maestría</span><span>Doctorado</span></div>
+      </div>
+
+      <div class="cob-panel" id="panel-datos">
+        <div class="cob-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M3 3v18h18" stroke-linecap="round"/><path d="M7 14l3-4 3 3 5-7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Análisis cuantitativo y cualitativo</h3>
+        <p>Procesamos datos cuantitativos en SPSS (estadística descriptiva e inferencial, pruebas de hipótesis, correlaciones y regresión) y datos cualitativos en Atlas.ti (codificación, categorías, matrices y redes de relaciones). Resultados reales, interpretados y listos para tu capítulo.</p>
+        <div class="tags"><span>SPSS</span><span>Atlas.ti</span><span>Tablas y gráficos</span></div>
+      </div>
+
+      <div class="cob-panel" id="panel-estilos">
+        <div class="cob-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 20h9" stroke-linecap="round"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z" stroke-linejoin="round"/></svg></div>
+        <h3>Citación y formato en cualquier estilo</h3>
+        <p>Dominamos los principales sistemas de citación y formato académico. Aplicamos el que tu facultad requiera, con citas y referencias verificadas para evitar observaciones del jurado en la revisión.</p>
+        <div class="tags"><span>APA 6 y 7</span><span>MLA</span><span>Chicago</span><span>Vancouver</span></div>
       </div>
     </div>
   </div>
@@ -538,7 +612,7 @@
       </div>
       <div class="why-item reveal">
         <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <div><h4>Experiencia con criterios UDELAS</h4><p>Conocemos los índices, formatos y rúbricas que tu asesor espera, y ajustamos el trabajo a ellos.</p></div>
+        <div><h4>Experiencia en muchas universidades</h4><p>Conocemos los índices, formatos y rúbricas de las principales universidades del país, y ajustamos el trabajo a cada una.</p></div>
       </div>
       <div class="why-item reveal">
         <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
@@ -566,8 +640,8 @@
     <div class="steps">
       <div class="step reveal"><div class="n">01</div><h4>Diagnóstico y plan</h4><p>Revisamos tu tema, requisitos y plazos. Definimos el cronograma y el alcance del trabajo.</p></div>
       <div class="step reveal"><div class="n">02</div><h4>Desarrollo por capítulos</h4><p>Construimos cada capítulo con marco teórico, metodología y redacción académica sólida.</p></div>
-      <div class="step reveal"><div class="n">03</div><h4>Análisis y resultados</h4><p>Procesamos los datos en SPSS, generamos tablas APA y la interpretación de resultados.</p></div>
-      <div class="step reveal"><div class="n">04</div><h4>Revisión y entrega</h4><p>Auditamos citas, aplicamos formato APA 7 y preparamos el documento final para sustentar.</p></div>
+      <div class="step reveal"><div class="n">03</div><h4>Análisis y resultados</h4><p>Procesamos los datos en SPSS o Atlas.ti, generamos tablas y la interpretación de resultados.</p></div>
+      <div class="step reveal"><div class="n">04</div><h4>Revisión y entrega</h4><p>Auditamos citas, aplicamos el formato requerido (APA, MLA, Chicago...) y preparamos el documento para sustentar.</p></div>
     </div>
   </div>
 </section>
@@ -657,7 +731,7 @@
           </div>
           <div class="ff">
             <label for="universidad">Universidad o institución</label>
-            <input type="text" id="universidad" name="universidad" placeholder="UDELAS, otra…">
+            <input type="text" id="universidad" name="universidad" placeholder="UDELAS, UP, UMECIT, USMA…">
           </div>
           <div class="ff">
             <label for="tipo">Tipo de trabajo</label>
@@ -669,8 +743,8 @@
               <option>Informe de Práctica Profesional</option>
               <option>Monografía</option>
               <option>Anteproyecto</option>
-              <option>Análisis estadístico (SPSS)</option>
-              <option>Revisión y formato APA</option>
+              <option>Análisis de datos (SPSS / Atlas.ti)</option>
+              <option>Revisión y formato (APA, MLA, Chicago…)</option>
             </select>
           </div>
           <div class="ff">
@@ -711,8 +785,8 @@
         <h5>Servicios</h5>
         <a href="#servicios">Desarrollo de tesis</a>
         <a href="#servicios">Práctica profesional</a>
-        <a href="#servicios">Análisis en SPSS</a>
-        <a href="#servicios">Formato APA 7</a>
+        <a href="#servicios">Análisis de datos</a>
+        <a href="#servicios">Citación y formato</a>
       </div>
       <div class="foot-col">
         <h5>Contacto</h5>
@@ -756,6 +830,17 @@
   }, {threshold:0.12});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+  /* ====== Tabs de cobertura ====== */
+  document.querySelectorAll('.cob-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const t = tab.dataset.tab;
+      document.querySelectorAll('.cob-tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.cob-panel').forEach(x => x.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + t).classList.add('active');
+    });
+  });
+
   /* ====== Planificador de cronograma + Gantt ====== */
   const PLANTILLAS = {
     "Tesis de Licenciatura": [
@@ -766,7 +851,7 @@
       {fase:"Trabajo de campo", sem:3},
       {fase:"Cap. IV · Resultados", sem:3},
       {fase:"Cap. V · Conclusiones", sem:2},
-      {fase:"Revisión y formato APA", sem:1}
+      {fase:"Revisión y formato", sem:1}
     ],
     "Tesis de Maestría": [
       {fase:"Anteproyecto y protocolo", sem:3},
@@ -774,10 +859,10 @@
       {fase:"Cap. II · Marco teórico", sem:5},
       {fase:"Cap. III · Metodología", sem:3},
       {fase:"Trabajo de campo", sem:4},
-      {fase:"Análisis estadístico (SPSS)", sem:3},
+      {fase:"Análisis de datos", sem:3},
       {fase:"Cap. IV · Resultados", sem:3},
       {fase:"Cap. V · Conclusiones", sem:2},
-      {fase:"Revisión y formato APA", sem:2}
+      {fase:"Revisión y formato", sem:2}
     ],
     "Tesis Doctoral": [
       {fase:"Proyecto de investigación", sem:5},
@@ -797,7 +882,7 @@
       {fase:"Desarrollo de actividades", sem:3},
       {fase:"Análisis y aportes", sem:2},
       {fase:"Conclusiones", sem:1},
-      {fase:"Revisión y formato APA", sem:1}
+      {fase:"Revisión y formato", sem:1}
     ],
     "Monografía": [
       {fase:"Delimitación del tema", sem:1},
@@ -805,7 +890,7 @@
       {fase:"Desarrollo del contenido", sem:3},
       {fase:"Análisis y discusión", sem:2},
       {fase:"Conclusiones", sem:1},
-      {fase:"Revisión y formato APA", sem:1}
+      {fase:"Revisión y formato", sem:1}
     ],
     "Anteproyecto": [
       {fase:"Planteamiento del problema", sem:1},

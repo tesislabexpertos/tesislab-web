@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Token de Acceso - TesisLab</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; }
+    #token-box { background: #f0f0f0; padding: 15px; border-radius: 8px; word-break: break-all; font-family: monospace; font-size: 13px; }
+    button { margin-top: 10px; padding: 8px 16px; background: #1B4F8A; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .ok { color: green; font-weight: bold; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Token de Acceso TesisLab</h2>
+  <div id="status">Procesando...</div>
+  <br>
+  <div id="token-box"></div>
+  <br>
+  <button onclick="copiar()">Copiar token</button>
+  <script>
+    const hash = window.location.hash;
+    const params = new URLSearchParams(hash.slice(1));
+    const token = params.get('access_token');
+    const status = document.getElementById('status');
+    const box = document.getElementById('token-box');
+    if (token) {
+      status.innerHTML = '<span class="ok">✅ Token obtenido. Cópialo y pégalo en n8n.</span>';
+      box.textContent = token;
+    } else {
+      status.innerHTML = '<span class="error">❌ No se encontró token. URL: ' + window.location.href + '</span>';
+    }
+    function copiar() {
+      navigator.clipboard.writeText(box.textContent);
+      alert('Token copiado');
+    }
+  </script>
+</body>
+</html>

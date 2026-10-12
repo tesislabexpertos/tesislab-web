@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TesisLab Expertos | Acompañamiento académico en Panamá</title>
 <meta name="description" content="Desarrollo integral de tesis, informes de práctica profesional, monografías y análisis de datos cuantitativo y cualitativo para estudiantes universitarios en Panamá. Citación en APA, MLA, Chicago y Vancouver.">
+<link rel="canonical" href="https://tesislabexpertos.github.io/tesislab-web/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none'%3E%3Crect x='2' y='2' width='44' height='44' rx='11' fill='%231A2A4F' stroke='%23C9A64C' stroke-width='1.5'/%3E%3Cpath d='M24 11L37 17.5L24 24L11 17.5L24 11Z' fill='%23C9A64C'/%3E%3Cpath d='M16 21.5V28C16 28 19 31 24 31C29 31 32 28 32 28V21.5' stroke='%23E2C77A' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M37 17.5V25' stroke='%23E2C77A' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PA">
+<meta property="og:site_name" content="TesisLab Expertos">
+<meta property="og:url" content="https://tesislabexpertos.github.io/tesislab-web/">
+<meta property="og:title" content="TesisLab Expertos | Acompañamiento académico en Panamá">
+<meta property="og:description" content="Desarrollo integral de tesis, informes de práctica profesional, monografías y análisis de datos para estudiantes universitarios en Panamá.">
+<meta property="og:image" content="https://tesislabexpertos.github.io/tesislab-web/og-tesislab.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"TesisLab Expertos","url":"https://tesislabexpertos.github.io/tesislab-web/","description":"Desarrollo integral de tesis, informes de práctica profesional, monografías y análisis de datos para estudiantes universitarios en Panamá.","email":"tesislabexpertos@gmail.com","telephone":"+50768138959","foundingDate":"2023-02-01","areaServed":{"@type":"Country","name":"Panamá"},"address":{"@type":"PostalAddress","addressLocality":"Santiago de Veraguas","addressCountry":"PA"},"sameAs":["https://www.facebook.com/tesis.lab.expertos","https://www.linkedin.com/in/juancarloschavezpinzon"]}
+</script>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -385,7 +401,7 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911z"/></svg>
         Escríbenos
       </a>
-      <button class="menu-btn" id="menuBtn" aria-label="Menú"><span></span><span></span><span></span></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menú" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
@@ -716,6 +732,7 @@
 
     <div class="form-card reveal">
       <form id="leadForm">
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label for="sitio">No llenar este campo</label><input type="text" id="sitio" name="sitio" tabindex="-1" autocomplete="off"></div>
         <div class="form-grid">
           <div class="ff">
             <label for="nombre">Nombre completo</label>
@@ -792,6 +809,8 @@
         <h5>Contacto</h5>
         <a href="https://wa.me/50768138959" target="_blank" rel="noopener">WhatsApp 6813-8959</a>
         <a href="mailto:tesislabexpertos@gmail.com">tesislabexpertos@gmail.com</a>
+        <a href="https://www.facebook.com/tesis.lab.expertos" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.linkedin.com/in/juancarloschavezpinzon" target="_blank" rel="noopener">LinkedIn</a>
         <a href="#agenda">Agenda una cita</a>
         <a href="#planificador">Calcula tu cronograma</a>
         <a href="#contacto">Solicita cotización</a>
@@ -821,8 +840,8 @@
   /* ====== Menú móvil ====== */
   const menuBtn = document.getElementById('menuBtn');
   const navLinks = document.getElementById('navLinks');
-  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  menuBtn.addEventListener('click', () => menuBtn.setAttribute('aria-expanded', navLinks.classList.toggle('open')));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); }));
 
   /* ====== Reveal on scroll ====== */
   const io = new IntersectionObserver((entries) => {
@@ -909,7 +928,7 @@
   // Inicializa la fecha de inicio en hoy
   (function(){
     const t = new Date();
-    const iso = t.toISOString().split('T')[0];
+    const iso = t.getFullYear() + '-' + String(t.getMonth()+1).padStart(2,'0') + '-' + String(t.getDate()).padStart(2,'0'); // fecha local, no UTC
     document.getElementById('fechaInicio').value = iso;
   })();
 
@@ -1041,9 +1060,17 @@
     submitBtn.innerHTML = 'Enviando…';
 
     try{
-      const body = new URLSearchParams(datos);
-      await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', body });
-      // Con mode no-cors no se puede leer la respuesta, pero el envío llega al script.
+      // Campo trampa: si un bot lo llena, no se envía nada al CRM.
+      if(!form.sitio.value){
+        const body = new URLSearchParams(datos);
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 20000);
+        const resp = await fetch(APPS_SCRIPT_URL, { method:'POST', body, signal: ctrl.signal });
+        clearTimeout(timer);
+        // El Apps Script responde {"ok":true} cuando guarda la fila en la hoja.
+        const r = await resp.json();
+        if(!resp.ok || !r.ok) throw new Error('El servidor no confirmó el registro');
+      }
       formMsg.className = 'form-msg ok';
       formMsg.textContent = '¡Gracias, ' + (datos.nombre || '') + '! Recibimos tu solicitud y te contactaremos muy pronto.';
       form.reset();

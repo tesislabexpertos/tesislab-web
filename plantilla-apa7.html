@@ -288,7 +288,7 @@ const doc = new Document({
   return doc;
 }
 
-var BREVO_FORM_URL = '';
+var BREVO_FORM_URL = 'https://dfdca908.sibforms.com/serve/MUIFAN7eK-Az6lxSOM2ENS_qUmsxvcCgVr5qW1ydeLS_ehMj_14PdNcis2kASh_JJq1i7EVefWLcKgQmvr38uMyWjn5fGotbL6ooNQprHGYGW0rUKqCe7wLSp3CrwAOvWupEQxOfR4gcUcXeeujneKJtmvK1ugfm5gC8H8PpJJdEGj9RqdM37qffIBRpVxu58hgQxn2bk9fFSlALZg==';
 var CRM_URL = 'https://script.google.com/macros/s/AKfycbwZsM4mS36xSb8l8ifH3vQtOYRsjb-j8QBmmNQn31cQDNYoD1kZimIzLR8xAh4proY/exec';
 
 function sendToCRM(d) {
@@ -332,15 +332,7 @@ function validate() {
 function sendToBrevo(d) {
   if (!BREVO_FORM_URL) return Promise.resolve();
   var fd = new FormData();
-  var parts = d.nombre.split(/\s+/);
   fd.append('EMAIL', d.correo);
-  fd.append('FIRSTNAME', parts[0]);
-  fd.append('LASTNAME', parts.slice(1).join(' '));
-  fd.append('UNIVERSIDAD', d.universidad);
-  fd.append('FACULTAD', d.facultad);
-  fd.append('CARRERA', d.carrera);
-  fd.append('NIVEL', d.nivel);
-  fd.append('CONSENTIMIENTO', new Date().toISOString());
   fd.append('email_address_check', '');
   fd.append('locale', 'es');
   return fetch(BREVO_FORM_URL, { method: 'POST', body: fd, mode: 'no-cors' }).catch(function () {});

@@ -929,6 +929,9 @@
     ]
   };
 
+  // Ultimo cronograma generado por el visitante (se envia con el formulario)
+  let ultimoCronograma = null;
+
   const MESES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
 
   function fmt(d){ return d.getDate() + " " + MESES[d.getMonth()] + " " + d.getFullYear(); }
@@ -974,6 +977,17 @@
       <div class="pill"><b>${fases.length} fases</b><span>Etapas del proyecto</span></div>
       <div class="pill accent"><b>${fmt(fin)}</b><span>Sustentación estimada</span></div>
     `;
+
+    // ---- Guarda el cronograma para enviarlo con el formulario ----
+    const ritmoSel = document.getElementById('ritmo');
+    ultimoCronograma = {
+      cron_tipo: tipo,
+      cron_ritmo: ritmoSel.options[ritmoSel.selectedIndex].text,
+      cron_inicio: fmt(inicio),
+      cron_semanas: String(totalSem),
+      cron_sustentacion: fmt(fin),
+      cron_fases: filas.map(f => f.fase + ' (' + f.sem + ' sem, ' + fmt(f.startD) + ' a ' + fmt(f.endD) + ')').join(' | ')
+    };
 
     // ---- Gantt ----
     renderGantt(filas, inicio, fin, totalDias);
@@ -1063,6 +1077,8 @@
       urgencia: form.urgencia.value,
       tema: form.tema.value.trim()
     };
+    // Si el visitante genero su cronograma, se adjunta al lead
+    if (ultimoCronograma) Object.assign(datos, ultimoCronograma);
 
     submitBtn.disabled = true;
     const orig = submitBtn.innerHTML;
@@ -1078,7 +1094,7 @@
         clearTimeout(timer);
         // El Apps Script responde {"ok":true} cuando guarda la fila en la hoja.
         const r = await resp.json();
-        if(!resp.ok || !r.ok) throw new Error('El servidor no confirmó el registro');
+        if(!resp.ok || !r || r.ok !== true || r.guardado !== true) throw new Error('El servidor no confirmó el registro');
       }
       formMsg.className = 'form-msg ok';
       formMsg.textContent = '¡Gracias, ' + (datos.nombre || '') + '! Recibimos tu solicitud y te contactaremos muy pronto.';

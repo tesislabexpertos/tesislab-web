@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /promo/
+Disallow: /correos/
+Disallow: /mis-enlaces/
 
 Sitemap: https://tesislabexpertos.github.io/tesislab-web/sitemap.xml

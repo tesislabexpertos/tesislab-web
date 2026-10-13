@@ -51,6 +51,9 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 16px 32px}
       <label for="correo">Correo electrónico</label>
       <input id="correo" name="correo" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com">
       <div class="err" id="e-correo"></div>
+      <label for="whatsapp">WhatsApp</label>
+      <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ej.: 6123-4567">
+      <div class="err" id="e-whatsapp"></div>
       <label for="universidad">Universidad</label>
       <input id="universidad" name="universidad" placeholder="Ej.: Universidad Especializada de las Américas">
       <div class="err" id="e-universidad"></div>
@@ -292,7 +295,7 @@ function sendToCRM(d) {
   var body = new URLSearchParams({
     nombre: d.nombre,
     correo: d.correo,
-    whatsapp: '',
+    whatsapp: d.whatsapp,
     universidad: d.universidad,
     tipo: 'PLANTILLA GRATIS',
     urgencia: 'Solo estoy explorando',
@@ -307,7 +310,7 @@ function sendToCRM(d) {
 }
 
 var form = document.getElementById('f');
-var fields = ['nombre', 'correo', 'universidad', 'facultad', 'carrera', 'nivel'];
+var fields = ['nombre', 'correo', 'whatsapp', 'universidad', 'facultad', 'carrera', 'nivel'];
 var lastBlob = null, lastName = '';
 
 function val(id) { return document.getElementById(id).value.trim(); }
@@ -321,6 +324,7 @@ function validate() {
   var ok = true;
   fields.forEach(function (id) { if (!val(id)) { setErr(id, 'Completa este campo.'); ok = false; } });
   if (val('correo') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('correo'))) { setErr('correo', 'Escribe un correo válido.'); ok = false; }
+  if (val('whatsapp') && val('whatsapp').replace(/\D/g, '').length < 7) { setErr('whatsapp', 'Escribe un número de WhatsApp válido.'); ok = false; }
   if (!document.getElementById('acepto').checked) { setErr('acepto', 'Para recibir la plantilla debes aceptar el aviso de privacidad.'); ok = false; }
   return ok;
 }

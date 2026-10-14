@@ -1,0 +1,27 @@
+name: descargar-fotos
+on:
+  push:
+    paths: ['.github/fotos.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fotos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar fotos de Unsplash
+        run: |
+          mkdir -p promo/fotos
+          while read -r name id; do
+            [ -z "$name" ] && continue
+            curl -sSL -o "promo/fotos/$name.jpg" "https://images.unsplash.com/photo-$id?w=1600&q=80&fm=jpg"
+          done < .github/fotos.txt
+          ls -la promo/fotos
+      - name: Guardar
+        run: |
+          git config user.name "TesisLab Expertos"
+          git config user.email "tesislabexpertos@gmail.com"
+          git add promo/fotos
+          git commit -m "Fotos para la campaña (Unsplash)" || exit 0
+          git push

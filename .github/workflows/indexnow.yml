@@ -1,0 +1,20 @@
+name: avisar-buscadores
+# Avisa a Bing y demas buscadores (IndexNow) cada vez que cambias la landing.
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml']
+  workflow_dispatch:
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Esperar a que GitHub Pages publique los cambios
+        run: sleep 90
+      - name: Enviar URLs del sitemap a IndexNow
+        run: |
+          URLS=$(grep -oP '(?<=<loc>)[^<]+' sitemap.xml | jq -R . | jq -s -c .)
+          BODY=$(jq -n --argjson u "$URLS" '{host:"tesislabexpertos.github.io",key:"5093313c63bf4678989fc6455435036b",keyLocation:"https://tesislabexpertos.github.io/tesislab-web/5093313c63bf4678989fc6455435036b.txt",urlList:$u}')
+          echo "$BODY"
+          curl -sS -o /dev/null -w "Respuesta IndexNow: %{http_code}\n" -X POST https://api.indexnow.org/indexnow -H "Content-Type: application/json; charset=utf-8" -d "$BODY"

@@ -32,6 +32,9 @@ button:disabled{opacity:.6;cursor:wait}
 #ok{display:none;text-align:center}
 #ok h2{color:var(--navy);margin-top:0}
 .tag{display:inline-block;margin-top:16px;padding:5px 12px;border:1px solid var(--gold);border-radius:20px;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.3px}
+.sin-libro{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);text-align:center}
+.sin-libro p{margin:0 0 10px}
+.sin-libro a{display:block;margin:6px 0;color:var(--navy);font-weight:700}
 .cta.gold{background:var(--gold);color:var(--navy);margin:4px 0 18px}
 .cta{display:inline-block;margin-top:14px;padding:13px 22px;background:var(--navy);color:#fff;border-radius:8px;text-decoration:none;font-weight:700}
 
@@ -44,11 +47,14 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 16px 32px}
   <div class="brand">TesisLab <span>Expertos</span></div>
   <div class="tag">Regalo exclusivo para lectores</div>
   <h1>Tu plantilla APA 7 y el Checklist Antidevolución, gratis</h1>
-  <p>Gracias por leer nuestros libros. Escribe tus datos y descarga al instante dos herramientas en Word: tu plantilla de tesis con la portada ya completa y el checklist de 50 puntos que revisan asesores y jurados antes de aprobar una tesis.</p>
+  <p>Si compraste cualquiera de nuestros libros, escribe el código de lector que aparece en la página de regalo del libro y descarga al instante dos herramientas en Word: tu plantilla de tesis con la portada ya completa y el checklist de 50 puntos que revisan asesores y jurados antes de aprobar una tesis.</p>
 </header>
 <main>
   <div class="card">
     <form id="f" novalidate>
+      <label for="codigo">Código de lector</label>
+      <input id="codigo" name="codigo" autocomplete="off" autocapitalize="characters" placeholder="Lo encuentras en la página de regalo de tu libro">
+      <div class="err" id="e-codigo"></div>
       <label for="nombre">Nombre completo</label>
       <input id="nombre" name="nombre" autocomplete="name" placeholder="Ej.: María Fernández Ríos">
       <div class="err" id="e-nombre"></div>
@@ -90,10 +96,15 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:0 16px 32px}
         <li>Checklist Antidevolución: 50 puntos para revisar tu tesis antes de entregarla</li>
       </ul>
     </form>
+    <div class="sin-libro">
+      <p>¿Aún no tienes el libro? El regalo se incluye con la compra de cualquiera de estos títulos:</p>
+      <a href="https://www.amazon.com/dp/B0GL9NP3PL" target="_blank" rel="noopener">Metodología de la Investigación y la Tesis en Word</a>
+      <a href="https://www.amazon.com/dp/B0HKP2BQ2C" target="_blank" rel="noopener">SPSS para tesis</a>
+    </div>
     <div id="ok">
       <h2>Tus regalos están listos</h2>
       <p>Tu plantilla APA 7 se está descargando. Si no se descargó, <a href="#" id="again">haz clic aquí</a>.</p>
-      <a class="cta gold" href="descargas/Checklist-Antidevolucion-TesisLab.docx" download>Descargar el Checklist Antidevolución</a>
+      <a class="cta gold" id="dl-check" href="#" download>Descargar el Checklist Antidevolución</a>
       <p>Al abrirla en Word, responde "Sí" cuando pregunte si deseas actualizar los campos, para generar el índice.</p>
       <p>¿Quieres avanzar más rápido? El Kit del Tesista incluye 10 archivos editables para toda la tesis.</p>
       <a class="cta" href="https://go.hotmart.com/F108002424A?src=regalo_lectores">Conocer el Kit del Tesista</a>
@@ -305,7 +316,7 @@ function sendToCRM(d) {
     universidad: d.universidad,
     tipo: 'REGALO LECTORES',
     urgencia: 'Solo estoy explorando',
-    tema: 'Lector de libro: descargó plantilla APA 7 y Checklist Antidevolución. Facultad: ' + d.facultad + '. Carrera: ' + d.carrera + '. Nivel: ' + d.nivel + '. Consentimiento Ley 81 otorgado: ' + new Date().toLocaleString('es-PA'),
+    tema: 'Lector del libro ' + d.libro + ': descargó plantilla APA 7 y Checklist Antidevolución. Facultad: ' + d.facultad + '. Carrera: ' + d.carrera + '. Nivel: ' + d.nivel + '. Consentimiento Ley 81 otorgado: ' + new Date().toLocaleString('es-PA'),
     origen: 'regalo_lectores'
   });
   var ctrl = new AbortController();
@@ -315,13 +326,21 @@ function sendToCRM(d) {
     .then(function () { clearTimeout(timer); });
 }
 
+var CODIGOS = {"74c354a7998810092c604281f2051081a94969d5df549328b32a57397c0d1533": "Metodología de la Investigación y la Tesis en Word", "c79121dbeab68a1d955d308c491e5d59978433fa27202304eefcb51fa82e00c4": "SPSS para tesis"};
+var SAL = 'tesislab-lectores';
+function hashCodigo(c) {
+  var data = new TextEncoder().encode(SAL + c);
+  return crypto.subtle.digest('SHA-256', data).then(function (buf) {
+    return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+  });
+}
 var form = document.getElementById('f');
 var fields = ['nombre', 'correo', 'whatsapp', 'universidad', 'facultad', 'carrera', 'nivel'];
 var lastBlob = null, lastName = '';
 
 function val(id) { return document.getElementById(id).value.trim(); }
 function setErr(id, msg) { document.getElementById('e-' + id).textContent = msg || ''; }
-fields.concat(['acepto']).forEach(function (id) {
+fields.concat(['acepto', 'codigo']).forEach(function (id) {
   document.getElementById(id).addEventListener('input', function () { setErr(id, ''); });
   document.getElementById(id).addEventListener('change', function () { setErr(id, ''); });
 });
@@ -354,10 +373,20 @@ function download(blob, name) {
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  if (!validate()) return;
+  var codigo = val('codigo').toUpperCase().replace(/\s+/g, '');
+  var okForm = validate();
+  if (!codigo) { setErr('codigo', 'Escribe el código de lector que aparece en tu libro.'); return; }
+  hashCodigo(codigo).then(function (h) {
+    if (!CODIGOS[h]) { setErr('codigo', 'Ese código no es válido. Revisa la página de regalo de tu libro.'); return; }
+    if (!okForm) return;
+    document.getElementById('dl-check').href = 'descargas/' + h.slice(0, 24) + '/Checklist-Antidevolucion-TesisLab.docx';
+    enviar(CODIGOS[h]);
+  });
+});
+function enviar(libro) {
   var btn = document.getElementById('btn');
   btn.disabled = true; btn.textContent = 'Preparando tus regalos...';
-  var d = {}; fields.forEach(function (id) { d[id] = val(id); });
+  var d = {}; fields.forEach(function (id) { d[id] = val(id); }); d.libro = libro;
   var safe = d.nombre.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]+/g, '-').replace(/^-|-$/g, '');
   lastName = 'Plantilla-APA7-' + (safe || 'Tesis') + '.docx';
   var docObj = buildPlantilla(window.docx, d);
@@ -370,7 +399,7 @@ form.addEventListener('submit', function (e) {
     btn.disabled = false; btn.textContent = 'Descargar mis regalos';
     setErr('acepto', 'No se pudo generar la plantilla. Intenta de nuevo o escríbenos por WhatsApp.');
   });
-});
+}
 document.getElementById('again').addEventListener('click', function (e) { e.preventDefault(); if (lastBlob) download(lastBlob, lastName); });
 </script>
 </body>
